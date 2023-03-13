@@ -65,9 +65,7 @@ const calculate = function (ops, first, second) {
 
 parent.addEventListener('click', function(e) {
 
-    if(e.target.value === '=') {
-        equalRun = false
-    }
+   
 
 
     if(firstbook) {
@@ -107,13 +105,13 @@ parent.addEventListener('click', function(e) {
     str = ''
     altwin = false
     }
-     altwin ?  alert("Please Click on AC (All Clear) button ") : ''
+    //  altwin ?  alert("Please Click on AC (All Clear) button ") : ''
      
     if(!e.target.closest('.num') && !e.target.closest('.operator')) return
     if (e.target.closest('.num')) {    
 
-    altwin ?  alert("Please Click on AC (All Clear) button ") : ''
-    altwin = false
+    // altwin ?  alert("Please Click on AC (All Clear) button ") : ''
+    // altwin = false
 
         if(firstbook) {
          
@@ -130,14 +128,19 @@ parent.addEventListener('click', function(e) {
             calculate(ops, first, second)
         }
         str+=e.target.value
+
+
         opsTaker = true
     }
 
+    
+
     if(opsTaker) {
         if(e.target.closest('.operator')) {
-            opsTaker = false
+            
             console.log("take")
-            str+=e.target.value
+            // str+=e.target.value
+            // console.log(str+=e.target.value)
             if (mngops) {
                 calculate(ops, first, second)
                 first = given
@@ -147,16 +150,32 @@ parent.addEventListener('click', function(e) {
             firstbook = false
             mngops = true
             // console.log(+first)
+
+            if(e.target.value === '=') {
+                str+=e.target.value.slice(0,-1) 
+                opsTaker = true
+
+                str = result.textContent.slice(1)
+                console.log()
+            } else {
+                str+=e.target.value
+                opsTaker = false 
+            }
+
             // firstnum = !firstnum
         }
     }
 
-    if(equalRun) {
-        running.textContent = str
-    } else {
-        running.textContent = result.textContent
-        altwin = true
-    }        
+    // if(equalRun) {
+    //     running.textContent = str
+    // } else {
+    //     running.textContent = result.textContent
+    //     altwin = true
+    // }        
+    // running.textContent = result.textContent
+
+    running.textContent = str
+
 })
 
 
