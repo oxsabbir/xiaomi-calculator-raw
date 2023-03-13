@@ -46,13 +46,13 @@ const calculate = function (ops, first, second) {
 
             console.log(+first - +second)
            given = +first - +second
-           result.textContent =`= ${+first - +second}`
+           result.textContent =`= ${(+first - +second).toFixed(2)}`
 
         }
         break 
         case '/' : {
             result.textContent =`= ${(+first / +second).toFixed(2)}`
-            given = +first / +second
+            given = (+first / +second).toFixed(2)
         }
         break
         case '*' : {
