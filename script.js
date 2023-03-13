@@ -17,7 +17,6 @@ let opsTaker = false
 let str = ''
 let equalRun = true
 let altwin = false
-let numblock = true
 // This is the reset Function when user clicked AC button Calculator Reset
 const reset = function () {
     temp = 0
@@ -30,9 +29,6 @@ const reset = function () {
     given 
     ops = ''
     opsTaker = false
-    equalRun = true
-    altwin = false
-    numblock = true
     str = ''
     result.textContent = 0
 }
@@ -76,6 +72,7 @@ parent.addEventListener('click', function(e) {
 
         if(e.target.value === 'c') {
             console.log('HI')
+
             if(first) {
                 first = first.slice(0,-1)
                 str = str.slice(0,-1)
@@ -92,7 +89,15 @@ parent.addEventListener('click', function(e) {
 
         if(e.target.value === 'c') {
             equalRun = true
-            str = ''
+
+            if(!second) {
+                // console.log('equalREmove')
+                // str = str.slice(0,-1)
+                // console.log(Boolean(str))
+                // str ? first = String(first).slice(0,-1) : ''
+                running.textContent = str
+            }
+
             if(second) {
                 second = second.slice(0,-1)
                 str = str.slice(0,-1)
@@ -116,39 +121,36 @@ parent.addEventListener('click', function(e) {
     //  altwin ?  alert("Please Click on AC (All Clear) button ") : ''
      
     if(!e.target.closest('.num') && !e.target.closest('.operator')) return
+    if (e.target.closest('.num')) {    
 
-    if (numblock) {
+    // altwin ?  alert("Please Click on AC (All Clear) button ") : ''
+    // altwin = false
 
-        if (e.target.closest('.num')) {    
-            // altwin ?  alert("Please Click on AC (All Clear) button ") : ''
-            // altwin = false
-            
-            if(firstbook) {
-                
-                first+= e.target.value
+        if(firstbook) {
+         
+            first+= e.target.value
 
-                
-            }
-            if(!firstbook) {
-                second+= e.target.value
-                calculate(ops, first, second)
-            }
-            if(firstnum) {
-                // calculate(ops, first, second)
-                calculate(ops, first, second)
-            }
-            str+=e.target.value
-            
-            
-            opsTaker = true
+         
         }
-        
+        if(!firstbook) {
+            second+= e.target.value
+            calculate(ops, first, second)
+        }
+        if(firstnum) {
+            // calculate(ops, first, second)
+            calculate(ops, first, second)
+        }
+        str+=e.target.value
+
+
+        opsTaker = true
     }
-        
+
+    
 
     if(opsTaker) {
         if(e.target.closest('.operator')) {
-            numblock = true
+            
             console.log("take")
             // str+=e.target.value
             // console.log(str+=e.target.value)
@@ -165,7 +167,7 @@ parent.addEventListener('click', function(e) {
             if(e.target.value === '=') {
                 str+=e.target.value.slice(0,-1) 
                 opsTaker = true
-                numblock = false
+
                 str = result.textContent.slice(1)
                 console.log()
             } else {
@@ -177,9 +179,15 @@ parent.addEventListener('click', function(e) {
         }
     }
 
+    // if(equalRun) {
+    //     running.textContent = str
+    // } else {
+    //     running.textContent = result.textContent
+    //     altwin = true
+    // }        
+    // running.textContent = result.textContent
 
     running.textContent = str
 
 })
-
 
